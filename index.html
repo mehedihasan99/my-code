@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <div id="success-part">
+        <div class="card" style="width: 30rem;">
+                <img src="images/right1.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h4>Ticket has been booked</h4>
+            <p>Your ticket has been successfully booked</p>
+            <p id="thanks-part">Thanks for booking with us online</p>
+            </div>
+          </div>
+    </div>
+    <main id="book-section" class="main-content container">
+        <div class="booking-form">
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label id="first-total" for="">First Class ($150)</label>
+                    <input id="first-count" class="inp-style inp-width" type="number" name="" value="1">
+                </div>
+                <div class="plus-minus-btn">
+                    <p><span onclick="handleTicketChange(true);">+</span> <span onclick="handleTicketChange(false);">-</span></p>
+                </div>
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label  id="economy-total" for="">Economy ($100)</label>
+                    <input  id="economy-count" class="inp-style inp-width" type="number" name="" value="1">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span onclick="handleEconomyTicketChange(true)">+</span> <span onclick="handleEconomyTicketChange(false)">-</span> </p>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="total-price">$500</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="vat-amount">$50</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="grand-amount">$550</p>
+                    </div>
+                </div>
+            </div>
+            <button id="book" class="btn-style">Book Now</button>
+        </div>
+        <div class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+        </div>
+    </section>
+  
+ 
+
+    <script>
+            const bookBtn = document.getElementById("book");
+            bookBtn.addEventListener("click", function(){
+            const bookSection = document.getElementById("book-section");
+            bookSection.style.display="none";
+
+            const successPart=document.getElementById("success-part");
+            successPart.style.display = "block";
+
+        })
+
+
+
+          function handleEconomyTicketChange(isIncrease){
+            const economyInput=document.getElementById("economy-count");
+            const economyCount=parseInt(economyInput.value);
+            let economyNewCount= economyCount;
+            if(isIncrease==true){
+                economyNewCount= economyCount+1;
+            }
+            if(isIncrease==false && economyCount>0){
+                economyNewCount= economyCount-1;
+            }
+            economyInput.value= economyNewCount;
+            const economyTotal=economyNewCount*100;
+            document.getElementById("economy-total").innerText="$" + economyTotal;
+            calculateTotal()
+        }
+        
+        function handleTicketChange(isIncrease){
+            const firstInput=document.getElementById("first-count");
+            const firstCount=parseInt(firstInput.value);
+            let firstNewCount= firstCount;
+            if(isIncrease==true){
+                firstNewCount= firstCount+1;
+            }
+            if(isIncrease==false && firstCount>0){
+                firstNewCount= firstCount-1;
+            }
+            firstInput.value= firstNewCount;
+            const firstTotal=firstNewCount*150;
+            document.getElementById("first-total").innerText="$" + firstTotal;
+            calculateTotal()
+        }
+
+        function calculateTotal(){
+          const firstInput = document.getElementById("first-count");
+          const firstCount=parseInt(firstInput.value);
+
+          const economyInput = document.getElementById("economy-count");
+          const economyCount=parseInt(economyInput.value);
+
+          const totalPrice = firstCount*150 + economyCount*100;
+          document.getElementById("total-price").innerText ="$"+ totalPrice;
+
+         const vat = totalPrice * 0.1;
+         document.getElementById("vat-amount").innerText = "$"+ vat;
+
+         const grandTotal = totalPrice + vat;
+         document.getElementById("grand-amount").innerText = grandTotal;
+
+        }
+    </script>
+
+    <!--Thank You-->
+</body>
+
+</html>
